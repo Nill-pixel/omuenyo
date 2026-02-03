@@ -71,7 +71,7 @@ export function FormField({
           placeholder={placeholder}
           className={`w-full px-4 py-2 border rounded-lg font-medium transition focus:outline-none focus:ring-2 focus:ring-primary-500 ${
             error ? "border-error" : "border-gray-300"
-          } ${disabled ? "bg-gray-100 cursor-not-allowed" : "bg-white"} resize-vertical min-h-[100px]`}
+          } ${disabled ? "bg-gray-100 cursor-not-allowed" : "bg-white"} resize-vertical min-h-25`}
         />
       ) : (
         <input

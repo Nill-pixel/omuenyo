@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { Leaf } from "lucide-react";
 
 export default function NotFound() {
   return (
@@ -12,16 +13,14 @@ export default function NotFound() {
       className="min-h-screen bg-linear-to-br from-primary-50 via-white to-primary-50 flex items-center justify-center p-4"
     >
       <div className="text-center max-w-md">
-        {/* Animated Icon */}
         <motion.div
           animate={{ rotate: [0, 5, -5, 0] }}
           transition={{ duration: 4, repeat: Infinity }}
-          className="text-7xl mb-6"
+          className="mx-auto mb-6 w-fit rounded-2xl bg-primary-700 p-4 text-white"
         >
-          🌾
+          <Leaf className="h-10 w-10" />
         </motion.div>
 
-        {/* 404 Text */}
         <motion.h1
           className="text-6xl font-bold text-primary-700 mb-2"
           initial={{ scale: 0.5 }}
@@ -31,7 +30,6 @@ export default function NotFound() {
           404
         </motion.h1>
 
-        {/* Error Message */}
         <motion.p
           className="text-2xl font-semibold text-gray-800 mb-4"
           initial={{ y: 20, opacity: 0 }}
@@ -50,7 +48,6 @@ export default function NotFound() {
           Desculpe, a página que você está procurando não existe ou foi movida.
         </motion.p>
 
-        {/* Action Buttons */}
         <motion.div
           className="flex flex-col sm:flex-row gap-4 justify-center"
           initial={{ y: 20, opacity: 0 }}
@@ -59,13 +56,13 @@ export default function NotFound() {
         >
           <Link
             href="/"
-            className="inline-block bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-8 rounded-lg transition transform hover:scale-105"
+            className="inline-block bg-primary-700 hover:bg-primary-800 text-white font-semibold py-3 px-8 rounded-lg transition"
           >
             ← Voltar ao início
           </Link>
           <Link
             href="/login"
-            className="inline-block border-2 border-primary-600 text-primary-600 hover:bg-primary-50 font-semibold py-3 px-8 rounded-lg transition"
+            className="inline-block border-2 border-primary-700 text-primary-700 hover:bg-primary-50 font-semibold py-3 px-8 rounded-lg transition"
           >
             Fazer login
           </Link>

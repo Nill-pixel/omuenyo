@@ -5,7 +5,7 @@
   :root {
     --background: #ffffff;
     --foreground: #2a382b;
-    --primary: #4a7c59;
+    --primary: #447055;
     --primary-light: #a8d5ba;
     --accent-pale: #e8f5e9;
 
@@ -17,8 +17,8 @@
     --color-primary-400: #83cbaf;
     --color-primary-500: #64be9b;
     --color-primary-600: #5a9f84;
-    --color-primary-700: #4a7c59;
-    --color-primary-800: #3a5a42;
+    --color-primary-700: #447055;
+    --color-primary-800: #356044;
     --color-primary-900: #2a382b;
     --color-primary-950: #1a1f18;
 
@@ -73,7 +73,7 @@
   input:focus,
   textarea:focus,
   select:focus {
-    border-bottom-color: #4a7c59;
+    border-bottom-color: #447055;
   }
 
   input::placeholder,
@@ -112,10 +112,10 @@
     @apply text-[#5a9f84];
   }
   .text-primary-700 {
-    @apply text-[#4a7c59];
+    @apply text-[#447055];
   }
   .text-primary-800 {
-    @apply text-[#3a5a42];
+    @apply text-[#356044];
   }
   .text-primary-900 {
     @apply text-[#2a382b];
@@ -147,10 +147,10 @@
     @apply bg-[#5a9f84];
   }
   .bg-primary-700 {
-    @apply bg-[#4a7c59];
+    @apply bg-[#447055];
   }
   .bg-primary-800 {
-    @apply bg-[#3a5a42];
+    @apply bg-[#356044];
   }
   .bg-primary-900 {
     @apply bg-[#2a382b];
@@ -182,10 +182,10 @@
     @apply border-[#5a9f84];
   }
   .border-primary-700 {
-    @apply border-[#4a7c59];
+    @apply border-[#447055];
   }
   .border-primary-800 {
-    @apply border-[#3a5a42];
+    @apply border-[#356044];
   }
   .border-primary-900 {
     @apply border-[#2a382b];
@@ -217,10 +217,10 @@
     @apply bg-[#5a9f84];
   }
   .hover\:bg-primary-700:hover {
-    @apply bg-[#4a7c59];
+    @apply bg-[#447055];
   }
   .hover\:bg-primary-800:hover {
-    @apply bg-[#3a5a42];
+    @apply bg-[#356044];
   }
   .hover\:bg-primary-900:hover {
     @apply bg-[#2a382b];
@@ -252,10 +252,10 @@
     @apply text-[#5a9f84];
   }
   .hover\:text-primary-700:hover {
-    @apply text-[#4a7c59];
+    @apply text-[#447055];
   }
   .hover\:text-primary-800:hover {
-    @apply text-[#3a5a42];
+    @apply text-[#356044];
   }
   .hover\:text-primary-900:hover {
     @apply text-[#2a382b];

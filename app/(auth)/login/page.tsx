@@ -1,190 +1,170 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
-import Link from "next/link";
-import { LoginSchema } from "@/src/shared/utils/validators";
-import { useValidation } from "@/src/shared/hooks/validation.hook";
-import { showToast } from "@/src/shared/utils/toast";
-import { FormField } from "@/src/components";
+import { Button } from "@/app/components/ui/button";
+import { Input } from "@/app/components/ui/input";
+import { Label } from "@/app/components/ui/label";
+import { Card } from "@/app/components/ui/card";
+import { Leaf, Mail, Lock } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
-  const { validate } = useValidation();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
 
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  const [loading, setLoading] = useState(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-    // Limpar erro ao começar a digitar
-    if (errors[name]) {
-      setErrors((prev) => {
-        const newErrors = { ...prev };
-        delete newErrors[name];
-        return newErrors;
-      });
-    }
-  };
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-
-    try {
-      // Validar dados
-      const validation = await validate(LoginSchema, formData);
-
-      if (!validation.success) {
-        setErrors(validation.errors || {});
-        showToast.error("Por favor, corrija os erros no formulário");
-        setLoading(false);
-        return;
-      }
-
-      // Aqui você chamaria sua API
-      // const response = await api.post('/auth/login', validation.data);
-      // localStorage.setItem('token', response.data.token);
-
-      showToast.success("Login realizado com sucesso!");
-      // router.push('/dashboard');
-    } catch (error: any) {
-      showToast.error(error.message || "Erro ao fazer login");
-    } finally {
-      setLoading(false);
-    }
+    router.push("/dashboard");
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-primary-100 via-white to-accent-pale flex items-center justify-center p-4">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
-        className="w-full max-w-md"
+    <div className="min-h-screen flex bg-white">
+      <div
+        className="hidden lg:flex lg:w-1/2 relative overflow-hidden"
+        style={{
+          backgroundImage: "url(/auth-pattern.svg)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
       >
-        <Card className="border border-primary-100">
-          {/* Logo/Header */}
-          <motion.div
-            className="text-center mb-8"
-            initial={{ y: -20 }}
-            animate={{ y: 0 }}
-            transition={{ delay: 0.1 }}
-          >
-            <div className="text-5xl mb-3">🌾</div>
-            <h1 className="text-3xl font-bold text-primary-700 mb-2">
-              Omuenyo
-            </h1>
-            <p className="text-gray-600 text-sm">Gestão agrícola inteligente</p>
-          </motion.div>
-
-          {/* Form */}
-          <motion.form
-            onSubmit={handleSubmit}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-          >
-            <FormField
-              label="Email"
-              name="email"
-              type="email"
-              placeholder="seu@email.com"
-              value={formData.email}
-              onChange={handleChange}
-              error={errors.email}
-              required
-            />
-
-            <FormField
-              label="Senha"
-              name="password"
-              type="password"
-              placeholder="••••••••"
-              value={formData.password}
-              onChange={handleChange}
-              error={errors.password}
-              required
-            />
-
-            {/* Remember & Forgot */}
-            <motion.div
-              className="flex justify-between items-center mb-6 text-sm"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-            >
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  className="w-4 h-4 accent-primary-600 rounded"
-                />
-                <span className="text-gray-600">Lembrar-me</span>
-              </label>
-              <Link
-                href="/forgot-password"
-                className="text-primary-600 hover:text-primary-700"
-              >
-                Esqueci a senha
-              </Link>
-            </motion.div>
-
-            {/* Submit Button */}
-            <Button type="submit" fullWidth loading={loading} className="mb-4">
-              Entrar
-            </Button>
-          </motion.form>
-
-          {/* Divider */}
-          <motion.div
-            className="relative mb-6"
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ delay: 0.4 }}
-          >
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300" />
+        <div className="absolute inset-0 bg-primary-700/80" />
+        <div className="relative z-10 flex flex-col justify-center px-12 text-white">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3">
+              <Leaf className="h-12 w-12 text-white" />
             </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-gray-500">
-                Novo por aqui?
+            <div>
+              <h1 className="text-4xl font-bold">AgroHealth</h1>
+              <p className="text-primary-100">ovikula</p>
+            </div>
+          </div>
+          <p className="text-xl mb-4">
+            Diagnóstico inteligente de doenças em culturas agrícolas
+          </p>
+          <p className="text-lg opacity-90">
+            Proteja suas plantações com tecnologia de ponta e análise de imagens
+            precisa.
+          </p>
+        </div>
+      </div>
+
+      <div className="flex-1 flex items-center justify-center p-8">
+        <div className="w-full max-w-md">
+          <div className="lg:hidden mb-8 text-center">
+            <div className="inline-flex items-center gap-2 mb-4">
+              <div className="bg-primary-700 rounded-xl p-2">
+                <Leaf className="h-8 w-8 text-white" />
+              </div>
+              <span className="text-2xl font-bold text-primary-700">
+                AgroHealth
               </span>
             </div>
-          </motion.div>
+          </div>
 
-          {/* Register Link */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="text-center"
-          >
-            <Link
-              href="/register"
-              className="text-primary-600 font-semibold hover:text-primary-700 transition"
-            >
-              Criar uma conta
-            </Link>
-          </motion.div>
-        </Card>
+          <div className="bg-transparent">
+            <div className="px-0 gap-2 p-4">
+              <h2 className="text-4xl font-medium text-[#424242]">Entrar</h2>
+              <div className="h-1 w-20 bg-primary-700 rounded-full mt-2" />
+            </div>
+            <div className="px-0">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="space-y-3">
+                  <Label
+                    htmlFor="email"
+                    className="text-base font-medium text-[#616161]"
+                  >
+                    Email
+                  </Label>
+                  <div className="relative">
+                    <div className="absolute left-0 top-1/2 -translate-y-1/2 flex items-center gap-2 text-[#616161]">
+                      <Mail className="h-4 w-4" />
+                      <div className="h-2 w-px bg-[#616161]" />
+                    </div>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="demo@email.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="pl-10 border-0 border-b-2 border-primary-700 rounded-none focus-visible:ring-0 focus-visible:border-primary-700"
+                      required
+                    />
+                  </div>
+                </div>
 
-        {/* Footer Info */}
-        <motion.p
-          className="text-center text-gray-500 text-xs mt-6"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
-        >
-          © 2026 Omuenyo. Todos os direitos reservados.
-        </motion.p>
-      </motion.div>
+                <div className="space-y-3">
+                  <Label
+                    htmlFor="password"
+                    className="text-base font-medium text-[#616161]"
+                  >
+                    Senha
+                  </Label>
+                  <div className="relative">
+                    <div className="absolute left-0 top-1/2 -translate-y-1/2 flex items-center gap-2 text-[#bdbdbd]">
+                      <Lock className="h-4 w-4" />
+                      <div className="h-2 w-px bg-[#bdbdbd]" />
+                    </div>
+                    <Input
+                      id="password"
+                      type="password"
+                      placeholder="Inserir sua senha"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="pl-10 border-0 border-b-2 border-[#bdbdbd] rounded-none focus-visible:ring-0 focus-visible:border-primary-700"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      id="remember"
+                      checked={rememberMe}
+                      onChange={(e) => setRememberMe(e.target.checked)}
+                      className="w-4 h-4 rounded border-primary-700 text-primary-700 focus:ring-primary-700"
+                    />
+                    <label
+                      htmlFor="remember"
+                      className="text-sm font-medium text-[#424242]"
+                    >
+                      Relembrar
+                    </label>
+                  </div>
+                  <button
+                    type="button"
+                    className="text-sm font-semibold text-primary-700 hover:underline"
+                  >
+                    Esqueceu a Senha?
+                  </button>
+                </div>
+
+                <Button
+                  type="submit"
+                  className="w-full bg-primary-700 hover:bg-primary-800 text-white py-6 rounded-xl text-lg font-semibold"
+                >
+                  Entrar
+                </Button>
+              </form>
+
+              <div className="mt-6 text-center">
+                <span className="text-sm text-[#9e9e9e]">
+                  Não tem uma conta?{" "}
+                </span>
+                <button
+                  onClick={() => router.push("/register")}
+                  className="text-sm text-primary-700 hover:underline font-medium"
+                >
+                  Registrar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

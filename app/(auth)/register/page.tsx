@@ -1,202 +1,214 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
-import Link from "next/link";
-import { FormField } from "@/src/components/form-field";
-import { Button } from "@/src/components/button";
-import { Card } from "@/src/components/card";
-import { RegisterSchema } from "@/src/shared/utils/validators";
-import { useValidation } from "@/src/shared/hooks/validation.hook";
-import { showToast } from "@/src/shared/utils/toast";
+import { Button } from "@/app/components/ui/button";
+import { Input } from "@/app/components/ui/input";
+import { Label } from "@/app/components/ui/label";
+import { Card } from "@/app/components/ui/card";
+import { Leaf, Mail, Phone, Lock, Eye } from "lucide-react";
 
 export default function RegisterPage() {
   const router = useRouter();
-  const { validate } = useValidation();
-
   const [formData, setFormData] = useState({
-    name: "",
     email: "",
+    phone: "",
     password: "",
     confirmPassword: "",
   });
 
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  const [loading, setLoading] = useState(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-    if (errors[name]) {
-      setErrors((prev) => {
-        const newErrors = { ...prev };
-        delete newErrors[name];
-        return newErrors;
-      });
-    }
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    router.push("/login");
   };
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
-
-    try {
-      const validation = await validate(RegisterSchema, formData);
-
-      if (!validation.success) {
-        setErrors(validation.errors || {});
-        showToast.error("Por favor, corrija os erros no formulário");
-        setLoading(false);
-        return;
-      }
-
-      showToast.success("Conta criada com sucesso!");
-    } catch (error: any) {
-      showToast.error(error.message || "Erro ao criar conta");
-    } finally {
-      setLoading(false);
-    }
+  const handleChange = (field: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-primary-50 via-white to-primary-50 flex items-center justify-center p-4">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
-        className="w-full max-w-md"
+    <div className="min-h-screen flex bg-white">
+      <div
+        className="hidden lg:flex lg:w-1/2 relative overflow-hidden"
+        style={{
+          backgroundImage: "url(/auth-pattern.svg)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
       >
-        <Card className="border border-primary-100">
-          <motion.div
-            className="text-center mb-8"
-            initial={{ y: -20 }}
-            animate={{ y: 0 }}
-            transition={{ delay: 0.1 }}
-          >
-            <div className="text-5xl mb-3">🌾</div>
-            <h1 className="text-3xl font-bold text-primary-700 mb-2">
-              Omuenyo
-            </h1>
-            <p className="text-gray-600 text-sm">Criar uma nova conta</p>
-          </motion.div>
+        <div className="absolute inset-0 bg-primary-700/80" />
+        <div className="relative z-10 flex flex-col justify-center px-12 text-white">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3">
+              <Leaf className="h-12 w-12 text-white" />
+            </div>
+            <div>
+              <h1 className="text-4xl font-bold">AgroHealth</h1>
+              <p className="text-primary-100">ovikula</p>
+            </div>
+          </div>
+          <p className="text-xl mb-4">
+            Junte-se a milhares de agricultores que confiam em nossa tecnologia
+          </p>
+          <p className="text-lg opacity-90">
+            Comece a proteger suas culturas com diagnósticos precisos e rápidos.
+          </p>
+        </div>
+      </div>
 
-          <motion.form
-            onSubmit={handleSubmit}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-          >
-            <FormField
-              label="Nome Completo"
-              name="name"
-              placeholder="João Silva"
-              value={formData.name}
-              onChange={handleChange}
-              error={errors.name}
-              required
-            />
+      <div className="flex-1 flex items-center justify-center p-8">
+        <div className="w-full max-w-md">
+          <div className="lg:hidden mb-8 text-center">
+            <div className="inline-flex items-center gap-2 mb-4">
+              <div className="bg-primary-700 rounded-xl p-2">
+                <Leaf className="h-8 w-8 text-white" />
+              </div>
+              <span className="text-2xl font-bold text-primary-700">
+                AgroHealth
+              </span>
+            </div>
+          </div>
 
-            <FormField
-              label="Email"
-              name="email"
-              type="email"
-              placeholder="seu@email.com"
-              value={formData.email}
-              onChange={handleChange}
-              error={errors.email}
-              required
-            />
-
-            <FormField
-              label="Senha"
-              name="password"
-              type="password"
-              placeholder="••••••••"
-              value={formData.password}
-              onChange={handleChange}
-              error={errors.password}
-              required
-            />
-
-            <FormField
-              label="Confirmar Senha"
-              name="confirmPassword"
-              type="password"
-              placeholder="••••••••"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              error={errors.confirmPassword}
-              required
-            />
-
-            <motion.div
-              className="mb-6 text-sm"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-            >
-              <label className="flex items-start gap-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  className="w-4 h-4 accent-primary-600 rounded mt-0.5"
-                  required
-                />
-                <span className="text-gray-600">
-                  Concordo com os{" "}
-                  <Link
-                    href="/terms"
-                    className="text-primary-600 hover:text-primary-700"
+          <div className="bg-transparent">
+            <div className="px-0 gap-2 p-4">
+              <h2 className="text-4xl font-medium text-[#424242]">Registrar</h2>
+              <div className="h-1 w-20 bg-primary-700 rounded-full mt-2" />
+            </div>
+            <div className="px-0">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="space-y-3">
+                  <Label
+                    htmlFor="email"
+                    className="text-base font-medium text-[#616161]"
                   >
-                    termos de serviço
-                  </Link>
+                    Email
+                  </Label>
+                  <div className="relative">
+                    <div className="absolute left-0 top-1/2 -translate-y-1/2 flex items-center gap-2 text-[#616161]">
+                      <Mail className="h-4 w-4" />
+                      <div className="h-2 w-px bg-[#616161]" />
+                    </div>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="demo@email.com"
+                      value={formData.email}
+                      onChange={(e) => handleChange("email", e.target.value)}
+                      className="pl-10 border-0 border-b-2 border-primary-700 rounded-none focus-visible:ring-0 focus-visible:border-primary-700"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <Label
+                    htmlFor="phone"
+                    className="text-base font-medium text-[#616161]"
+                  >
+                    Telefone
+                  </Label>
+                  <div className="relative">
+                    <div className="absolute left-0 top-1/2 -translate-y-1/2 flex items-center gap-2 text-[#616161]">
+                      <Phone className="h-4 w-4" />
+                      <div className="h-2 w-px bg-[#616161]" />
+                    </div>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      placeholder="+244 000-000-000"
+                      value={formData.phone}
+                      onChange={(e) => handleChange("phone", e.target.value)}
+                      className="pl-10 border-0 border-b-2 border-primary-700 rounded-none focus-visible:ring-0 focus-visible:border-primary-700"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <Label
+                    htmlFor="password"
+                    className="text-base font-medium text-[#616161]"
+                  >
+                    Senha
+                  </Label>
+                  <div className="relative">
+                    <div className="absolute left-0 top-1/2 -translate-y-1/2 flex items-center gap-2 text-[#bdbdbd]">
+                      <Lock className="h-4 w-4" />
+                      <div className="h-2 w-px bg-[#bdbdbd]" />
+                    </div>
+                    <Input
+                      id="password"
+                      type="password"
+                      placeholder="Inserir sua Senha"
+                      value={formData.password}
+                      onChange={(e) => handleChange("password", e.target.value)}
+                      className="pl-10 border-0 border-b-2 border-[#bdbdbd] rounded-none focus-visible:ring-0 focus-visible:border-primary-700"
+                      required
+                    />
+                    <button
+                      type="button"
+                      className="absolute right-0 top-1/2 -translate-y-1/2"
+                    >
+                      <Eye className="h-4 w-4 text-[#bdbdbd]" />
+                    </button>
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <Label
+                    htmlFor="confirmPassword"
+                    className="text-base font-medium text-[#616161]"
+                  >
+                    Confirma Senha
+                  </Label>
+                  <div className="relative">
+                    <div className="absolute left-0 top-1/2 -translate-y-1/2 flex items-center gap-2 text-[#bdbdbd]">
+                      <Lock className="h-4 w-4" />
+                      <div className="h-2 w-px bg-[#bdbdbd]" />
+                    </div>
+                    <Input
+                      id="confirmPassword"
+                      type="password"
+                      placeholder="Confirmar sua Senha"
+                      value={formData.confirmPassword}
+                      onChange={(e) =>
+                        handleChange("confirmPassword", e.target.value)
+                      }
+                      className="pl-10 border-0 border-b-2 border-[#bdbdbd] rounded-none focus-visible:ring-0 focus-visible:border-primary-700"
+                      required
+                    />
+                    <button
+                      type="button"
+                      className="absolute right-0 top-1/2 -translate-y-1/2"
+                    >
+                      <Eye className="h-4 w-4 text-[#bdbdbd]" />
+                    </button>
+                  </div>
+                </div>
+
+                <Button
+                  type="submit"
+                  className="w-full bg-primary-700 hover:bg-primary-800 text-white py-6 rounded-xl text-lg font-semibold"
+                >
+                  Criar conta
+                </Button>
+              </form>
+
+              <div className="mt-6 text-center">
+                <span className="text-sm text-[#9e9e9e]">
+                  Já tem uma conta!{" "}
                 </span>
-              </label>
-            </motion.div>
-
-            <Button type="submit" fullWidth loading={loading} className="mb-4">
-              Criar Conta
-            </Button>
-          </motion.form>
-
-          <motion.div
-            className="relative mb-6"
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ delay: 0.4 }}
-          >
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300" />
+                <button
+                  onClick={() => router.push("/login")}
+                  className="text-sm text-primary-700 hover:underline font-medium"
+                >
+                  Entrar
+                </button>
+              </div>
             </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-gray-500">Já tem conta?</span>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="text-center"
-          >
-            <Link
-              href="/login"
-              className="text-primary-600 font-semibold hover:text-primary-700 transition"
-            >
-              Fazer login
-            </Link>
-          </motion.div>
-        </Card>
-
-        <motion.p
-          className="text-center text-gray-500 text-xs mt-6"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
-        >
-          © 2026 Omuenyo. Todos os direitos reservados.
-        </motion.p>
-      </motion.div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
