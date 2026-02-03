@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ReactNode } from "react";
 import React from "react";
 
@@ -71,16 +71,22 @@ export function GlassCard({
   className = "",
   delay = 0,
 }: GlassCardProps) {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ delay, duration: 0.6 }}
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+      whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+      transition={shouldReduceMotion ? undefined : { delay, duration: 0.6 }}
       viewport={{ once: true }}
-      whileHover={{
-        y: -10,
-        boxShadow: "0 25px 50px -12px rgba(74, 124, 89, 0.3)",
-      }}
+      whileHover={
+        shouldReduceMotion
+          ? undefined
+          : {
+              y: -10,
+              boxShadow: "0 25px 50px -12px rgba(74, 124, 89, 0.3)",
+            }
+      }
       className={`
         relative rounded-3xl overflow-hidden group
         bg-white/15 backdrop-blur-2xl border border-white/30
@@ -373,19 +379,25 @@ export function GlowingBorder({
   children: ReactNode;
   className?: string;
 }) {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <div className={`relative overflow-hidden rounded-3xl group ${className}`}>
       {/* Animated glow border - optimized for performance */}
       <motion.div
         className="absolute inset-0 bg-linear-to-r from-primary-600 via-primary-400 to-primary-600 opacity-0 blur-2xl rounded-3xl"
-        animate={{
-          opacity: [0, 0.6, 0],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+        animate={
+          shouldReduceMotion ? { opacity: 0.15 } : { opacity: [0, 0.6, 0] }
+        }
+        transition={
+          shouldReduceMotion
+            ? undefined
+            : {
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }
+        }
         style={{ willChange: "opacity" }}
       />
 

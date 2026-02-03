@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
 import {
   HiSparkles,
@@ -42,6 +42,7 @@ export default function Landing() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -251,9 +252,11 @@ export default function Landing() {
           <GlowingBorder>
             <motion.div
               className="relative bg-linear-to-br from-white via-green-50 to-white rounded-2xl p-1 overflow-hidden"
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.5 }}
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 40 }}
+              animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+              transition={
+                shouldReduceMotion ? undefined : { duration: 0.9, delay: 0.5 }
+              }
             >
               <div className="relative bg-white rounded-xl p-4 md:p-8">
                 {/* Animated grid */}
@@ -287,9 +290,21 @@ export default function Landing() {
                     ].map((feat, idx) => (
                       <motion.div
                         key={idx}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.7 + idx * 0.1 }}
+                        initial={
+                          shouldReduceMotion
+                            ? false
+                            : { opacity: 0, scale: 0.8 }
+                        }
+                        animate={
+                          shouldReduceMotion
+                            ? undefined
+                            : { opacity: 1, scale: 1 }
+                        }
+                        transition={
+                          shouldReduceMotion
+                            ? undefined
+                            : { delay: 0.7 + idx * 0.1 }
+                        }
                         className="px-3 py-1 bg-linear-to-r from-green-50 to-white border border-green-200/50 rounded-full flex items-center gap-1.5 backdrop-blur-sm"
                       >
                         <feat.icon className="w-3 h-3 text-green-600" />
@@ -310,9 +325,9 @@ export default function Landing() {
       <section id="problem" className="relative py-32 px-6 z-10">
         <div className="max-w-3xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 40 }}
+            whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={shouldReduceMotion ? undefined : { duration: 0.8 }}
             viewport={{ once: true }}
           >
             <div className="mb-12">
@@ -355,9 +370,13 @@ export default function Landing() {
                 <motion.div
                   key={idx}
                   className="flex gap-4 items-start p-4 rounded-lg bg-white/50 backdrop-blur border border-gray-200/50 hover:border-green-200/50 transition"
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: idx * 0.15 }}
+                  initial={shouldReduceMotion ? false : { opacity: 0, x: -30 }}
+                  whileInView={
+                    shouldReduceMotion ? undefined : { opacity: 1, x: 0 }
+                  }
+                  transition={
+                    shouldReduceMotion ? undefined : { delay: idx * 0.15 }
+                  }
                   viewport={{ once: true }}
                 >
                   <div className="shrink-0 mt-1">
@@ -380,9 +399,9 @@ export default function Landing() {
       <section id="solution" className="relative py-32 px-6 z-10">
         <div className="max-w-4xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 40 }}
+            whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={shouldReduceMotion ? undefined : { duration: 0.8 }}
             viewport={{ once: true }}
           >
             <div className="mb-12">
@@ -425,9 +444,13 @@ export default function Landing() {
                 <GlassCard key={idx}>
                   <motion.div
                     className="p-6 rounded-xl relative"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: idx * 0.15 }}
+                    initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+                    whileInView={
+                      shouldReduceMotion ? undefined : { opacity: 1, y: 0 }
+                    }
+                    transition={
+                      shouldReduceMotion ? undefined : { delay: idx * 0.15 }
+                    }
                     viewport={{ once: true }}
                   >
                     <motion.div
