@@ -6,6 +6,7 @@ import { Leaf, Mail, Phone, Lock, Eye } from "lucide-react";
 import { Button } from "@/src/shared/components/ui/button";
 import { Input } from "@/src/shared/components/ui/input";
 import { Label } from "@/src/shared/components/ui/label";
+import { motion } from "framer-motion";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -27,13 +28,16 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen flex bg-white">
-      <div
+      <motion.div
         className="hidden lg:flex lg:w-1/2 relative overflow-hidden"
         style={{
           backgroundImage: "url(/auth-pattern.svg)",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6 }}
       >
         <div className="absolute inset-0 bg-primary-700/80" />
         <div className="relative z-10 flex flex-col justify-center px-12 text-white">
@@ -53,10 +57,15 @@ export default function RegisterPage() {
             Comece a proteger suas culturas com diagnósticos precisos e rápidos.
           </p>
         </div>
-      </div>
+      </motion.div>
 
       <div className="flex-1 flex items-center justify-center p-8">
-        <div className="w-full max-w-md">
+        <motion.div
+          className="w-full max-w-md"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
           <div className="lg:hidden mb-8 text-center">
             <div className="inline-flex items-center gap-2 mb-4">
               <div className="bg-primary-700 rounded-xl p-2">
@@ -75,7 +84,12 @@ export default function RegisterPage() {
             </div>
             <div className="px-0">
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="space-y-3">
+                <motion.div
+                  className="space-y-3"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
                   <Label
                     htmlFor="email"
                     className="text-base font-medium text-[#616161]"
@@ -97,9 +111,14 @@ export default function RegisterPage() {
                       required
                     />
                   </div>
-                </div>
+                </motion.div>
 
-                <div className="space-y-3">
+                <motion.div
+                  className="space-y-3"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.25 }}
+                >
                   <Label
                     htmlFor="phone"
                     className="text-base font-medium text-[#616161]"
@@ -121,9 +140,14 @@ export default function RegisterPage() {
                       required
                     />
                   </div>
-                </div>
+                </motion.div>
 
-                <div className="space-y-3">
+                <motion.div
+                  className="space-y-3"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
                   <Label
                     htmlFor="password"
                     className="text-base font-medium text-[#616161]"
@@ -151,9 +175,14 @@ export default function RegisterPage() {
                       <Eye className="h-4 w-4 text-[#bdbdbd]" />
                     </button>
                   </div>
-                </div>
+                </motion.div>
 
-                <div className="space-y-3">
+                <motion.div
+                  className="space-y-3"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.35 }}
+                >
                   <Label
                     htmlFor="confirmPassword"
                     className="text-base font-medium text-[#616161]"
@@ -183,17 +212,28 @@ export default function RegisterPage() {
                       <Eye className="h-4 w-4 text-[#bdbdbd]" />
                     </button>
                   </div>
-                </div>
+                </motion.div>
 
-                <Button
-                  type="submit"
-                  className="w-full bg-primary-700 hover:bg-primary-800 text-white py-6 rounded-xl text-lg font-semibold"
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
                 >
-                  Criar conta
-                </Button>
+                  <Button
+                    type="submit"
+                    className="w-full bg-primary-700 hover:bg-primary-800 text-white py-6 rounded-xl text-lg font-semibold"
+                  >
+                    Criar conta
+                  </Button>
+                </motion.div>
               </form>
 
-              <div className="mt-6 text-center">
+              <motion.div
+                className="mt-6 text-center"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.45 }}
+              >
                 <span className="text-sm text-[#9e9e9e]">
                   Já tem uma conta!{" "}
                 </span>
@@ -203,10 +243,10 @@ export default function RegisterPage() {
                 >
                   Entrar
                 </button>
-              </div>
+              </motion.div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

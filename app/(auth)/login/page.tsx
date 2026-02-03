@@ -6,6 +6,7 @@ import { Leaf, Mail, Lock } from "lucide-react";
 import { Label } from "@/src/shared/components/ui/label";
 import { Button } from "@/src/shared/components/ui/button";
 import { Input } from "@/src/shared/components/ui/input";
+import { motion } from "framer-motion";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -20,13 +21,16 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex bg-white">
-      <div
+      <motion.div
         className="hidden lg:flex lg:w-1/2 relative overflow-hidden"
         style={{
           backgroundImage: "url(/auth-pattern.svg)",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6 }}
       >
         <div className="absolute inset-0 bg-primary-700/80" />
         <div className="relative z-10 flex flex-col justify-center px-12 text-white">
@@ -47,10 +51,15 @@ export default function LoginPage() {
             precisa.
           </p>
         </div>
-      </div>
+      </motion.div>
 
       <div className="flex-1 flex items-center justify-center p-8">
-        <div className="w-full max-w-md">
+        <motion.div
+          className="w-full max-w-md"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
           <div className="lg:hidden mb-8 text-center">
             <div className="inline-flex items-center gap-2 mb-4">
               <div className="bg-primary-700 rounded-xl p-2">
@@ -69,7 +78,12 @@ export default function LoginPage() {
             </div>
             <div className="px-0">
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="space-y-3">
+                <motion.div
+                  className="space-y-3"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
                   <Label
                     htmlFor="email"
                     className="text-base font-medium text-[#616161]"
@@ -91,9 +105,14 @@ export default function LoginPage() {
                       required
                     />
                   </div>
-                </div>
+                </motion.div>
 
-                <div className="space-y-3">
+                <motion.div
+                  className="space-y-3"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.25 }}
+                >
                   <Label
                     htmlFor="password"
                     className="text-base font-medium text-[#616161]"
@@ -115,9 +134,14 @@ export default function LoginPage() {
                       required
                     />
                   </div>
-                </div>
+                </motion.div>
 
-                <div className="flex items-center justify-between">
+                <motion.div
+                  className="flex items-center justify-between"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
                   <div className="flex items-center gap-2">
                     <input
                       type="checkbox"
@@ -139,17 +163,28 @@ export default function LoginPage() {
                   >
                     Esqueceu a Senha?
                   </button>
-                </div>
+                </motion.div>
 
-                <Button
-                  type="submit"
-                  className="w-full bg-primary-700 hover:bg-primary-800 text-white py-6 rounded-xl text-lg font-semibold"
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.35 }}
                 >
-                  Entrar
-                </Button>
+                  <Button
+                    type="submit"
+                    className="w-full bg-primary-700 hover:bg-primary-800 text-white py-6 rounded-xl text-lg font-semibold"
+                  >
+                    Entrar
+                  </Button>
+                </motion.div>
               </form>
 
-              <div className="mt-6 text-center">
+              <motion.div
+                className="mt-6 text-center"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+              >
                 <span className="text-sm text-[#9e9e9e]">
                   Não tem uma conta?{" "}
                 </span>
@@ -159,10 +194,10 @@ export default function LoginPage() {
                 >
                   Registrar
                 </button>
-              </div>
+              </motion.div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
