@@ -54,9 +54,6 @@ export default function Landing() {
 
   return (
     <div className="relative w-full overflow-hidden bg-white">
-      {/* Animated Background with Particles */}
-      <ParticleBackground />
-
       {/* Animated blobs in background */}
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute top-10 right-0 w-96 h-96 opacity-40">
