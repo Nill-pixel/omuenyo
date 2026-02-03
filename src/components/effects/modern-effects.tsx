@@ -423,41 +423,39 @@ export function LiquidButton({
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
     >
-      {/* Premium gradient background with liquid effect */}
+      {/* Leaf-like base gradient */}
       <motion.div
-        className="absolute inset-0 bg-linear-to-r from-green-400 via-green-600 to-green-500 rounded-xl"
+        className="absolute inset-0 rounded-xl"
         animate={{
-          backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
+          backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
         }}
         transition={{
-          duration: 4,
+          duration: 6,
           repeat: Infinity,
           ease: "easeInOut",
         }}
         style={{
+          backgroundImage:
+            "linear-gradient(120deg, #356044 0%, #447055 45%, #5a9f84 100%)",
           backgroundSize: "200% 200%",
           willChange: "background-position",
         }}
       />
 
-      {/* Simplified liquid morphing overlay */}
-      <motion.div
-        className="absolute inset-0 opacity-30 rounded-xl"
-        animate={{
-          rotate: [0, 360],
+      {/* Leaf vein pattern */}
+      <div
+        className="absolute inset-0 rounded-xl opacity-35"
+        style={{
+          backgroundImage:
+            "repeating-linear-gradient(135deg, rgba(255,255,255,0.18) 0px, rgba(255,255,255,0.18) 1px, transparent 1px, transparent 10px)",
         }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "linear",
-        }}
-        style={{ willChange: "transform" }}
-      >
-        <div className="absolute inset-0 bg-linear-to-br from-green-300/40 to-transparent rounded-xl" />
-      </motion.div>
+      />
 
-      {/* Apple-style light reflection from top */}
-      <div className="absolute top-0 inset-x-0 h-1/3 bg-linear-to-b from-white/30 to-transparent rounded-t-xl opacity-60 group-hover:opacity-80 transition-opacity" />
+      {/* Central vein glow */}
+      <div className="absolute inset-y-0 left-1/2 w-px bg-white/40 opacity-70" />
+
+      {/* Soft top highlight */}
+      <div className="absolute top-0 inset-x-0 h-1/3 bg-linear-to-b from-white/25 to-transparent rounded-t-xl opacity-60 group-hover:opacity-80 transition-opacity" />
 
       {/* Inset shadow for depth */}
       <div className="absolute inset-0 rounded-xl shadow-inner shadow-black/20" />
@@ -467,22 +465,12 @@ export function LiquidButton({
         {children}
       </span>
 
-      {/* Premium shine effect on hover */}
+      {/* Subtle sheen on hover */}
       <motion.div
-        className="absolute inset-0 bg-linear-to-r from-transparent via-white/25 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"
+        className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"
         animate={{ x: ["-100%", "100%"] }}
-        transition={{
-          duration: 1.5,
-          repeat: Infinity,
-          repeatDelay: 3,
-        }}
+        transition={{ duration: 2, repeat: Infinity, repeatDelay: 2.5 }}
         style={{ willChange: "transform" }}
-      />
-
-      {/* Subtle wave at bottom on hover */}
-      <motion.div
-        className="absolute bottom-0 inset-x-0 h-1/4 bg-linear-to-t from-black/10 to-transparent rounded-b-xl opacity-0 group-hover:opacity-100 transition-opacity"
-        style={{ willChange: "opacity" }}
       />
     </motion.button>
   );

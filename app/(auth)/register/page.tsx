@@ -2,11 +2,10 @@
 
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/app/components/ui/button";
-import { Input } from "@/app/components/ui/input";
-import { Label } from "@/app/components/ui/label";
-import { Card } from "@/app/components/ui/card";
 import { Leaf, Mail, Phone, Lock, Eye } from "lucide-react";
+import { Button } from "@/src/shared/components/ui/button";
+import { Input } from "@/src/shared/components/ui/input";
+import { Label } from "@/src/shared/components/ui/label";
 
 export default function RegisterPage() {
   const router = useRouter();

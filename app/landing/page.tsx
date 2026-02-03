@@ -451,6 +451,130 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* Startup Status Section */}
+      <section className="relative py-24 px-6 z-10 bg-primary-700">
+        <div className="max-w-5xl mx-auto text-center text-white">
+          <motion.span
+            className="text-sm font-bold uppercase tracking-widest text-white/80"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            Estamos começando
+          </motion.span>
+          <motion.h2
+            className="text-3xl md:text-4xl font-black mt-3"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            viewport={{ once: true }}
+          >
+            Startup em fase inicial
+          </motion.h2>
+          <motion.p
+            className="text-white/80 mt-4 max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            Estamos validando o produto com produtores locais e melhorando a
+            cada versão.
+          </motion.p>
+        </div>
+      </section>
+
+      {/* Process Section */}
+      <section className="relative py-28 px-6 z-10 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-14">
+            <span className="text-sm font-bold text-green-600 uppercase tracking-widest">
+              Como funciona
+            </span>
+            <h2 className="text-4xl md:text-5xl font-black mt-3 text-gray-900">
+              Simples e direto
+            </h2>
+            <p className="text-gray-600 mt-4 max-w-2xl mx-auto font-light">
+              Quatro passos claros para diagnosticar e agir rápido no campo.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            {[
+              {
+                title: "Capture",
+                desc: "Tire uma foto da folha com seu celular.",
+              },
+              {
+                title: "Analise",
+                desc: "A IA identifica sinais da doença em segundos.",
+              },
+              {
+                title: "Aja",
+                desc: "Receba recomendações práticas e objetivas.",
+              },
+              {
+                title: "Proteja",
+                desc: "Evite perdas e aumente sua produtividade.",
+              },
+            ].map((step, idx) => (
+              <motion.div
+                key={step.title}
+                className="text-center relative"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <div className="inline-flex mb-6 relative">
+                  <div className="w-16 h-16 bg-primary-700 text-white rounded-2xl flex items-center justify-center text-2xl font-bold shadow-lg">
+                    {idx + 1}
+                  </div>
+                  <div className="absolute w-full h-full bg-primary-700/20 rounded-2xl top-3 left-3 -z-10" />
+                </div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">
+                  {step.title}
+                </h3>
+                <p className="text-gray-600 text-sm font-light">{step.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="relative py-24 px-6 z-10 bg-gray-50">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <span className="text-sm font-bold text-green-600 uppercase tracking-widest">
+              Depoimentos
+            </span>
+            <h2 className="text-4xl md:text-5xl font-black mt-3 text-gray-900">
+              Quem usa, aprova
+            </h2>
+            <p className="text-gray-600 mt-4 max-w-2xl mx-auto font-light">
+              Produtores que reduziram perdas e tomaram decisões mais rápidas.
+            </p>
+          </div>
+
+          <div className="max-w-2xl mx-auto">
+            <motion.div
+              className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-center"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <p className="text-gray-700">
+                Estamos iniciando as primeiras validações com produtores locais.
+              </p>
+              <p className="text-gray-500 text-sm mt-2">
+                Em breve publicaremos depoimentos reais.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section with Animation */}
       <section className="relative py-40 px-6 z-10 overflow-hidden">
         {/* Animated background gradient */}
